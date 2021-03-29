@@ -14,18 +14,18 @@ COPY ./package*.json ./
 COPY . .
 RUN if [[ -n "$NPM_TOKEN" ]] ; \
     then \
-        echo "NPM_TOKEN defined, including private packages" && \
-        echo -e "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && \
-        npm ci && \
-        npm run test -- --coverage && \
-        npm run build:finsemble && \
-        npm run storybook:build ; \
+    echo "NPM_TOKEN defined, including private packages" && \
+    echo -e "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && \
+    npm ci && \
+    npm run test -- --coverage && \
+    npm run build:finsemble && \
+    npm run storybook:build ; \
     else \
-        echo "NPM_TOKEN not defined, ignoring optional packages" && \
-        npm ci --no-optional && \
-        npm run test -- --coverage && \
-        npm run build && \
-        npm run storybook:build ; \
+    echo "NPM_TOKEN not defined, ignoring optional packages" && \
+    npm ci --no-optional && \
+    npm run test -- --coverage && \
+    npm run build && \
+    npm run storybook:build ; \
     fi
 
 # We use openresty to make use of the lua scripting for nginx
